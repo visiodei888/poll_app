@@ -1,23 +1,19 @@
-import logo from './logo.svg';
+
 import './App.css';
+import Create_poll from './components/Create_poll';
+import Mod_signup from './components/Mod_signup';
+import Navbar_mod from './components/Navbar_mod';
+import Navbar_user from './components/Navbar_user';
+import Profile from './components/Profile';
+import User_login from './components/User_login';
+import User_signup from './components/User_signup';
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar_user/>
+     <Create_poll/>
     </div>
   );
 }
