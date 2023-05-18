@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import Placeholder from "./placeholder.jpeg";
 
-const Cards = () => {
+const Mod_cards = () => {
   return (
     <div>
       <Card
@@ -32,13 +32,13 @@ const Cards = () => {
         </CardContent>
         <CardActions>
         
-              <Button size="large" style={{fontWeight:"bold"}}>Vote</Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <Typography>Tag</Typography>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <Typography>Moderator</Typography>
+              <Button size="large" style={{fontWeight:"bold"}} variant="contained">RESULT</Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <Typography>Leftover Time</Typography>
+              
         </CardActions>
       </Card>
     </div>
   );
 };
 
-export default Cards;
+export default Mod_cards;

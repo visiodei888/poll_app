@@ -11,11 +11,16 @@ import MenuItem from '@mui/material/MenuItem';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import { Home, VerifiedUserRounded } from '@mui/icons-material';
+import Profile from './Profile.jsx';
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Navbar_user = () => {
-    
+  const [showProfile, setShowProfile] = React.useState(false);
+
+  const handleProfileClick = () => {
+    setShowProfile(!showProfile);
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
     <AppBar position="static">
@@ -36,7 +41,7 @@ const Navbar_user = () => {
         </Typography>
         <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open profile">
-              <IconButton sx={{ p: 0 }}>
+              <IconButton sx={{ p: 0 }} onClick={handleProfileClick}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>

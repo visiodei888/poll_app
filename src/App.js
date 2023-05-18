@@ -7,13 +7,18 @@ import Navbar_user from './components/Navbar_user';
 import Profile from './components/Profile';
 import User_login from './components/User_login';
 import User_signup from './components/User_signup';
+import Cards from './components/Cards';
+import Mod_cards from './components/Mod_cards';
+import Results from './components/Results';
+
 
 
 function App() {
   return (
     <div className="App">
       <Navbar_user/>
-     <Create_poll/>
+      
+      
     </div>
   );
 }
