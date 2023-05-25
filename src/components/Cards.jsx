@@ -1,5 +1,7 @@
 import React from "react";
+
 import {
+  Box,
   Button,
   Card,
   CardActions,
@@ -9,9 +11,13 @@ import {
 } from "@mui/material";
 import Placeholder from "./placeholder.jpeg";
 
+
+
 const Cards = () => {
-  return (
-    <div>
+
+  
+return (
+    <Box sx={{padding: 3 }}>
       <Card
         sx={{ maxWidth: 300, maxHeight:650}}
         style={{
@@ -37,7 +43,7 @@ const Cards = () => {
               <Typography>Moderator</Typography>
         </CardActions>
       </Card>
-    </div>
+    </Box>
   );
 };
 

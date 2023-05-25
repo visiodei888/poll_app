@@ -12,10 +12,8 @@ import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import { Home, VerifiedUserRounded } from '@mui/icons-material';
 import { Button } from '@mui/material';
-import { NavLink } from 'react-router-dom';
 
-
-const Navbar_mod = () => {
+const Navbar_admin = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
     <AppBar position="static">
@@ -28,21 +26,19 @@ const Navbar_mod = () => {
           aria-label="home"
           sx={{ mr: 2 }}
         >
-          <NavLink to='/Modcards' style={{ color: 'inherit', textDecoration: 'none' }}>
           <Home />
-          </NavLink>
         </IconButton>
         </Tooltip>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           POLL APP
         </Typography>
-        <NavLink to='/Create' style={{ color: 'inherit', textDecoration: 'none' }}>
-        <Button variant='inherit'>CREATE POLL</Button>
-        </NavLink>
+        <Button variant='inherit'>CREATE</Button>
+        <Button variant='inherit'>EDIT</Button>
+        <Button variant='inherit'>DELETE</Button>
       </Toolbar>
     </AppBar>
   </Box>
   )
 }
 
-export default Navbar_mod
+export default Navbar_admin

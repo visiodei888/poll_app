@@ -15,6 +15,7 @@ import TextField from '@mui/material/TextField';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
+import axios from 'axios';
 
 function Copyright(props) {
     return (
@@ -29,25 +30,51 @@ function Copyright(props) {
     );
   }
 
-const theme = createTheme();
+
 
 const User_signup = () => {
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-          username: data.get('username'),
-          password: data.get('password'),
-        });
-      };
+  const [formData, setFormData] = React.useState({
+    firstName: '',
+    role: '',
+    username: '',
+    password: '',
+    polltype: ''
+  });
 
-      const [polltype, setPollType] = React.useState("");
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios.post('http://localhost:8000/signup', formData)
+      .then((response) => {
+        // User created successfully
+        // Reset form data
+        setFormData({
+          firstName: '',
+          role: '',
+          username: '',
+          password: '',
+          polltype: '',
+        });
+      })
+      .catch((error) => {
+        console.error('Error creating user:', error);
+        // Handle error
+      });
+  };
+ 
+
   const handleChange = (event) => {
-    setPollType(event.target.value);
+    const { name, value } = event.target;
+  
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value
+    }));
   };
   
+  
       return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={createTheme()}>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <Box
@@ -75,16 +102,19 @@ const User_signup = () => {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                value={formData.firstName}
+                  onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
                 required
                 fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="family-name"
+                id="role"
+                label="Role"
+                name="role"
+                value={formData.role}
+                  onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -95,6 +125,8 @@ const User_signup = () => {
                 label="Username"
                 name="username"
                 autoComplete="username"
+                value={formData.username}
+                  onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -106,6 +138,8 @@ const User_signup = () => {
                 type="password"
                 id="password"
                 autoComplete="new-password"
+                value={formData.password}
+                  onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -118,9 +152,10 @@ const User_signup = () => {
             <FormControl sx={{ m: 0, minWidth: 80 }} required fullWidth>
         <InputLabel id="demo-simple-select-autowidth-label">Poll tag preference</InputLabel>
         <Select
+        name="polltype"
           labelId="demo-simple-select-autowidth-label"
           id="demo-simple-select-autowidth"
-          value={polltype}
+          value={formData.polltype}
           onChange={handleChange}
           autoWidth
           label="Poll tag preference"
@@ -128,9 +163,9 @@ const User_signup = () => {
           <MenuItem value="">
             <em>NONE</em>
           </MenuItem>
-          <MenuItem value={1}>SPORTS</MenuItem>
-          <MenuItem value={2}>MOVIES</MenuItem>
-          <MenuItem value={3}>TRAVEL</MenuItem>
+          <MenuItem value="SPORTS">SPORTS</MenuItem>
+          <MenuItem value="MOVIES">MOVIES</MenuItem>
+           <MenuItem value="TRAVEL">TRAVEL</MenuItem>
         </Select>
       </FormControl>
             </Grid>

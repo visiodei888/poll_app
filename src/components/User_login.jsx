@@ -1,4 +1,5 @@
-import * as React from 'react';
+
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,6 +13,11 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
+import { Link as RouterLink } from 'react-router-dom';
+
+
+
 
 
 
@@ -28,20 +34,68 @@ function Copyright(props) {
     );
   }
 
+  function redirectToRole(role) {
+    if (role === 'user') {
+      return '/Navbar_user/*';
+    } else if (role === 'moderator') {
+      return '/Navbar_mod';
+    } else if (role === 'admin') {
+      return '/Navbar_admin';
+    }
+  }
+  
+  function decodeToken(token) {
+    try {
+      const [, payloadBase64,] = token.split('.');
+      const payload = JSON.parse(atob(payloadBase64));
+      const { role } = payload;
+      return { role };
+    } catch (error) {
+      throw new Error('Failed to decode token');
+    }
+  }
+  
+
 const theme = createTheme();
 
+
+
 const User_login = () => {
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-          username: data.get('username'),
-          password: data.get('password'),
-        });
-      };
+ 
+ 
+ 
+  const [error, setError] = useState(null);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+
+    const username = data.get('username');
+    const password = data.get('password');
+
+    try {
+      const response = await axios.post('http://localhost:8000/login', { username, password });
+
+      if (response.status === 200) {
+        const { token } = response.data;
+        const decodedToken = decodeToken(token);
+        const { role } = decodedToken;
+        const redirectPath = redirectToRole(role);
+        window.location.href = redirectPath; // Navigate to the specified route
+      } else {
+        setError('Invalid username or password');
+      }
+    } catch (error) {
+      console.log(error);
+      setError('An error occurred during login');
+    }
+  };
+
+  
+     
   
   
-      return (
+  return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
@@ -102,6 +156,11 @@ const User_login = () => {
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               /> */}
+              {error && (
+          <Typography variant="body2" color="error">
+            {error}
+          </Typography>
+        )}
               <Button
                 type="submit"
                 fullWidth
@@ -131,4 +190,4 @@ const User_login = () => {
   )
 }
 
-export default User_login
+export default User_login;

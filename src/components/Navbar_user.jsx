@@ -12,6 +12,8 @@ import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import { Home, VerifiedUserRounded } from '@mui/icons-material';
 import Profile from './Profile.jsx';
+import { Link, NavLink } from 'react-router-dom';
+
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -23,7 +25,7 @@ const Navbar_user = () => {
   };
   return (
     <Box sx={{ flexGrow: 1 }}>
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Toolbar>
         <Tooltip title='Back to Home'>
         <IconButton
@@ -33,7 +35,10 @@ const Navbar_user = () => {
           aria-label="home"
           sx={{ mr: 2 }}
         >
+          <NavLink to='/Cards' style={{ color: 'inherit', textDecoration: 'none' }}>
           <Home />
+          </NavLink>
+          
         </IconButton>
         </Tooltip>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -42,7 +47,9 @@ const Navbar_user = () => {
         <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open profile">
               <IconButton sx={{ p: 0 }} onClick={handleProfileClick}>
+              <NavLink to='/Profile' style={{ color: 'inherit', textDecoration: 'none' }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </NavLink>
               </IconButton>
             </Tooltip>
             <Menu
@@ -68,6 +75,7 @@ const Navbar_user = () => {
           </Box>
       </Toolbar>
     </AppBar>
+    
   </Box>
   )
 }
